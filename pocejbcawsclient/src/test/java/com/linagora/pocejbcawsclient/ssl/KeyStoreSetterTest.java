@@ -1,12 +1,18 @@
 package com.linagora.pocejbcawsclient.ssl;
 
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.KEY_STORE_PASSWORD;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.KEY_STORE_PATH;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.KEY_STORE_TYPE;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.TRUST_STORE_PASSWORD;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.TRUST_STORE_PATH;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.TRUST_STORE_TYPE;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.setKeyStore;
+import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.setTrustStore;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
 import com.linagora.pocejbcawsclient.conf.Configuration;
-
-import static com.linagora.pocejbcawsclient.ssl.KeyStoreSetter.*;
 
 public class KeyStoreSetterTest {
 	

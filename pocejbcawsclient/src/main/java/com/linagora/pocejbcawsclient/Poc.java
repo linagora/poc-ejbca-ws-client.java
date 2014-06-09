@@ -3,7 +3,7 @@ package com.linagora.pocejbcawsclient;
 import com.google.common.base.Stopwatch;
 import com.linagora.pocejbcawsclient.ssl.SSLRelaxer;
 
-public class Poc {		
+public final class Poc {		
 	public static void main(String[] args) {
 		SSLRelaxer.relaxSSLVerification();
 		
@@ -26,6 +26,8 @@ public class Poc {
 		stopwatch.reset();
 		
 	}
+	
+	private Poc() { }
 	
 	public static void create500Certs(Client client) {
 		for (int i = 1500; i > 1000; i--) {

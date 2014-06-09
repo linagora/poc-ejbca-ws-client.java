@@ -18,18 +18,18 @@ public class ClientTest {
 	private Client client;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		SSLRelaxer.relaxSSLVerification();
 		client = new Client();
 	}
 
 	@Test
-	public void testUserName() throws Exception {
+	public void testUserName() {
 		assertThat(userName(0)).isEqualTo("test0000");
 	}
 
 	@Test
-	public void testCreateUserMatch() throws Exception {
+	public void testCreateUserMatch() {
 		final UserMatch actual = createUserMatch(0);
 		assertThat(actual.getMatchtype()).isEqualTo(0);
 		assertThat(actual.getMatchvalue()).isEqualTo("test0000");
@@ -37,7 +37,7 @@ public class ClientTest {
 	}
 	
 	@Test
-	public void testCreateUserData() throws Exception {
+	public void testCreateUserData() {
 		final UserDataVOWS userData = createUserData(0);
 		assertThat(userData.getUsername()).isEqualTo("test0000");
 		assertThat(userData.getEmail()).isEqualTo("test0000@laposte.fr");
@@ -46,7 +46,7 @@ public class ClientTest {
 		assertThat(userData.getStatus()).isEqualTo(STATUS_NEW);
 	}
 
-	public void testCreateUser(int userNumber) throws Exception {
+	public void testCreateUser(int userNumber) {
 		client.createUser(userNumber);
 		final UserDataVOWS userData = client.findUser(userNumber);
 		assertThat(userData.getUsername()).isEqualTo(userName(userNumber));
@@ -56,20 +56,20 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testCreateUser() throws Exception {
+	public void testCreateUser() {
 		testCreateUser(0);
 	}
 
 	
 	@Test
-	public void testGenerateUserCert() throws Exception {
+	public void testGenerateUserCert() {
 		testCreateUser(1);
 		KeyStore userCert = client.generateUserCert(1);
 		assertThat(userCert).isNotNull();
 	}
 
 	@Test
-	public void testRenew() throws Exception {
+	public void testRenew() {
 		testCreateUser(2);
 		client.renew(2);
 		UserDataVOWS userData = client.findUser(2);
@@ -77,7 +77,7 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testRevoke() throws Exception {
+	public void testRevoke() {
 		testCreateUser(3);
 		client.revoke(3);
 		UserDataVOWS userData = client.findUser(3);
