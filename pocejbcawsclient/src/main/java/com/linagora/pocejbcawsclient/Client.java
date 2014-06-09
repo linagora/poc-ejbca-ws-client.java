@@ -16,10 +16,10 @@ public class Client {
 	protected static final int STATUS_NEW = 10;
 
 	private final URL wsURL;
-	private EjbcaWS ejbcaWS = null;
+	private EjbcaWS ejbcaWS;
 
 	
-	public Client(String wsURL) {
+	public Client(final String wsURL) {
 		Preconditions.checkNotNull(wsURL);
 		try {
 			this.wsURL = new URL(wsURL);
@@ -33,7 +33,7 @@ public class Client {
 	}
 	
 	public static String userName(int userNumber) {
-		return "test" + String.format("%04d", userNumber);
+		return "test" + String.format("%04d", Integer.valueOf(userNumber));
 	}
 	
 	public void renew(int userNumber) {
@@ -107,7 +107,7 @@ public class Client {
 		userData.setCaName(Configuration.caName());
 		userData.setCertificateProfileName(Configuration.certificateProfile());
 		userData.setEndEntityProfileName(Configuration.entityProfile());
-		userData.setSubjectDN(Configuration.DN());
+		userData.setSubjectDN(Configuration.subjectDN());
 
 		userData.setTokenType("P12");
 		userData.setSubjectAltName("");
@@ -120,7 +120,7 @@ public class Client {
 
 	@VisibleForTesting
 	protected EjbcaWS ejbaWs() {
-		if(ejbcaWS == null) {
+		if (ejbcaWS == null) {
 			final EjbcaWSService ejbcaWSService = new EjbcaWSService(wsURL);
 			ejbcaWS = ejbcaWSService.getEjbcaWSPort();
 		}

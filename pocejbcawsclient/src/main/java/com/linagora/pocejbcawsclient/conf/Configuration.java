@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 
-public class Configuration {
+public final class Configuration {
 
 	private static final String TMPDIR = System.getProperty("java.io.tmpdir");
 	private static final String DEFAULT_DN = "CN=ManagementCA,C=SE";
@@ -25,15 +25,14 @@ public class Configuration {
 //	private static final String DEFAULT_WEB_CERT_PATH = "/tmp/ws-login.cert";
 	
 	
-	private static final Properties properties;
-
+	private static final Properties PROPERTIES;
 
 	static {
-		properties = new Properties();
+		PROPERTIES = new Properties();
 		File configFile = new File(configFilePath());
-		if(configFile.isFile()) {
+		if (configFile.isFile()) {
 			try {
-				properties.load(new FileInputStream(configFile));
+				PROPERTIES.load(new FileInputStream(configFile));
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -41,6 +40,8 @@ public class Configuration {
 		
 	}
 
+	private Configuration() { }
+	
 	public static String configFilePath() {
 		return getConfigurationEntry("configuration.file", DEFAULT_CONFIGURATION_FILE_PATH);
 	}
@@ -85,16 +86,16 @@ public class Configuration {
 		return getConfigurationEntry("entitiyProfile", DEFAULT_ENTITY_PROFILE);
 	}
 
-	public static String DN() {
+	public static String subjectDN() {
 		return getConfigurationEntry("DN", DEFAULT_DN);
 	}
 
 	private static String getConfigurationEntry(String configurationEntry,
 			String defaultValue) {
 		String configurationFilePath = System.getProperty(configurationEntry);
-		if(isNullOrEmpty(configurationFilePath)) {
-			configurationFilePath = properties.getProperty(configurationEntry); 
-			if(isNullOrEmpty(configurationFilePath)) {
+		if (isNullOrEmpty(configurationFilePath)) {
+			configurationFilePath = PROPERTIES.getProperty(configurationEntry); 
+			if (isNullOrEmpty(configurationFilePath)) {
 				return defaultValue;
 			}
 		}
